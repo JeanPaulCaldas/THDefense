@@ -6,7 +6,7 @@
         {
             if (!map.OnMap(this))
             {
-                throw new System.Exception(x + "," + y + " is out of the boundaries of the map." );
+                throw new System.Exception(this + " is out of the boundaries of the map." );
             }
         }
 

@@ -31,7 +31,7 @@ namespace TreeHouseDefense
 
                         if (invader.IsNeutralized)
                         {
-                            Console.WriteLine("Invader destroyed!");
+                            Console.WriteLine("Invader destroyed at " + invader.Location + "!");
                         }
                     }
                     else
