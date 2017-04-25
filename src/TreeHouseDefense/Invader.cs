@@ -2,12 +2,14 @@
 {
     class Invader
     {
-        private int _pathStep = 0;
         private readonly Path _path;
+        private int _pathStep = 0;
+
+        protected virtual int StepSize { get; } = 1;
 
         public MapLocation Location { get => _path.GetLocationAt(_pathStep); }
 
-        public int Health { get; private set; } = 2;
+        public virtual int Health { get; protected set; } = 2;
 
         public bool HasScored { get => _pathStep >= _path.Length; }
 
@@ -17,9 +19,12 @@
 
         public Invader(Path path) => _path = path;
 
-        public void Move() => _pathStep++;
+        public void Move() => _pathStep += StepSize;
 
-        public void DecreaseHealth(int factor) => Health -= factor;
-
+        public virtual void DecreaseHealth(int factor)
+        {
+            Health -= factor;
+            System.Console.WriteLine("Hit on target!");
+        }
     }
 }

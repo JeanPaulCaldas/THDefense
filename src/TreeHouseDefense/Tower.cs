@@ -4,9 +4,9 @@ namespace TreeHouseDefense
 {
     class Tower
     {
-        private const int _range = 1;
-        private const int _power = 1;
-        private const double _accuracy = .75;
+        protected virtual int Range { get; } = 1;
+        protected virtual int Power { get; } = 1;
+        protected virtual double Accuracy { get; } = .75;
 
         private readonly MapLocation _location;
         private static readonly Random _random = new Random();
@@ -16,32 +16,28 @@ namespace TreeHouseDefense
             _location = location;
         }
 
-        public bool IsSuccesfulShot() => _random.NextDouble() < _accuracy;
+        public bool IsSuccesfulShot() => _random.NextDouble() < Accuracy;
 
         public void FireOnInvaders(Invader[] invaders)
         {
             foreach (Invader invader in invaders)
             {
-                if (invader.IsActive && _location.InRangeOf(invader.Location, _range))
+                if (invader.IsActive && _location.InRangeOf(invader.Location, Range))
                 {
-                    string message = string.Empty;
-
                     if (IsSuccesfulShot())
                     {
-                        invader.DecreaseHealth(_power);
-                        message = "Hit on target!";
+                        invader.DecreaseHealth(Power);
+                        
 
                         if (invader.IsNeutralized)
                         {
-                            message = "Invader destroyed!";
+                            Console.WriteLine("Invader destroyed!");
                         }
                     }
                     else
                     {
-                        message = "Shot missed.";
+                        Console.WriteLine("Shot missed.");
                     }
-
-                    Console.WriteLine(message);
                     break;
                 }
             }
